@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <% if(sucess.length>0){ %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+                <%= sucess %>
+            </span>
+        </div>
+        <% } %>
+    <nav class="w-full flex justify-between px-5 py-3">
+        <h3 class="text-xl">Scatch</h3>
+        <% var loggedin = typeof loggedin !== 'undefined' ? loggedin : true %>
+            <% if(loggedin){%>
+                <div class="flex gap-5">
+                    <a href="">Shop</a>
+                    <a href="">Cart</a>
+                    <a href="">My Account</a>
+                    <a class="text-red-600" href="/users/logout">Logout</a>
+                </div>
+                <% } %>
+                    %>
+
+    </nav>
+
+    <div class="w-full h-screen flex items-start px-20 py-20">
+        <div class="w-[25%] flex h-screen flex-col items-start">
+            <div class="flex items-center gap-2">
+                <h3>sort by</h3>
+                <form action="/shop">
+                    <select class="border-[1px] px-2 py-1" name="sortby" id="">
+                        <option value="popular">Popular</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </form>
+            </div>
+            <div class="flex flex-col mt-20">
+                <a class="block w-fit mb-2" href="">New Collection</a>
+                <a class="block w-fit mb-2" href="">All Products</a>
+                <a class="block w-fit mb-2" href="">Discounted Products</a>
+            </div>
+            <div class="mt-32">
+                <a class="block w-fit mb-2" href="">Filter by :</a>
+                <a class="block w-fit mb-2" href="">Availability</a>
+                <a class="block w-fit mb-2" href="">Discount</a>
+            </div>
+        </div>
+        <div class="w-[100%] h-[75%] flex justify-center items-start h-screen">
+            <div class="w-full flex flex-wrap justify-around gap-5 items-start">
+                <!-- <div class="w-[75%] h-[75%] flex flex-wrap gap-5 h-screen"></div> -->
+                <% products.forEach(function(product){ %>
+                    <div class="w-60 h-auto">
+                        <div class="w-full h-52 flex items-center justify-center bg-[<%= product.bgcolor %>]">
+                            <img class="h-[12rem]" src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                                alt="">
+                        </div>
+                        <div
+                            class="flex justify-between bg-[<%= product.panelcolor %>] items-center px-4 py-4 text-[<%= product.textcolor %>]">
+                            <div>
+                                <h3>
+                                    <%= product.name %>
+                                </h3>
+                                <h4>₹ <%= product.price %>
+                                </h4>
+                            </div>
+                            <a class="w-7 h-7 flex items-center justify-center rounded-full bg-white" href="/shop/<%=product._id%>">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <% }) %>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
